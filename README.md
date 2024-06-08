@@ -17,13 +17,13 @@ A web application which allows to save sketchs as images and vector files. It's 
 <details>
   <summary> Save As PNG: </summary>
 
-  - The application turns all the content in the current canvas, including all drawn strokes, into a PNG image format when the user selects the “Save as image” icon.
+  - The application turns all the content in the current canvas, including all drawn strokes, into a PNG image format when the user selects the "Save as image" icon.
 </details>
 <details>
   <summary> Save As INKML File: </summary>
 
   - The web app allows users to save sketches in Inkml format in addition to PNG. 
-  - This is done by storing all the coordinates and other related information, converting the drawn strokes into an Inkml document by clicking on the “Save as Inkml” icon.​
+  - This is done by storing all the coordinates and other related information, converting the drawn strokes into an Inkml document by clicking on the "Save as Inkml" icon.​
 </details>
 <details>
   <summary> Open & Redraw INKML File: </summary>
@@ -57,10 +57,10 @@ A web application which allows to save sketchs as images and vector files. It's 
 
   - To improve accuracy in corrections and modifications, users can also selectively erase portions of the sketch using the erase function. 
   - Erace can work when hovering on a drawing with no need at all for mouse input.
-  - These actions are accessible by clicking on “Undo”, “Redo”, and “Erase” icons. Moreover, users can switch from erasing to drawing by clicking on the “Draw” icon and vice versa. 
+  - These actions are accessible by clicking on "Undo", "Redo", and "Erase" icons. Moreover, users can switch from erasing to drawing by clicking on the "Draw" icon and vice versa. 
 </details>
 <details>
   <summary> Clear All: </summary>
   
-  - This is responsible for deleting all the strokes drawn on the sketch and removing any opened item in the RAM by clicking on the “Clear All” icon.
+  - This is responsible for deleting all the strokes drawn on the sketch and removing any opened item in the RAM by clicking on the "Clear All" icon.
 </details>
