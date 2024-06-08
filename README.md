@@ -13,6 +13,7 @@ A web application which allows to save sketchs as images and vector files. It's 
   - Using a mouse or a touch input, users can freely draw on the canvas.
   - The application records all the coordinates of the strokes made by the user as a sequence of vector coordinates (x and y) that show the course of the drawing.
   - These coordinates are kept in the RAM.
+    ![Draw](public/images/Gifs/Draw.gif)
 </details>
 <details>
   <summary> Save As PNG: </summary>
