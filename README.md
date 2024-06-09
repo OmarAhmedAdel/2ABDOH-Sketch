@@ -57,6 +57,7 @@ A web application which allows to save sketchs as images and vector files. It's 
   - Users can use the undo, redo, and erase features, as basic features among other crucial editing tools. 
   - Users can return to and undo actions to restore the drawing to its earlier states by using the undo function. 
   - On the other hand, users can reapply undone operations using the redo tool, which gives them more editing flexibility.
+    ![Undo&Redo](public/images/Gifs/Undo&Redo.gif)
 </details>
 <details>
   <summary> Erase The Strokes: </summary>
