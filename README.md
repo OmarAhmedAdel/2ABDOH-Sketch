@@ -73,3 +73,20 @@ A web application which allows to save sketchs as images and vector files. It's 
   - This is responsible for deleting all the strokes drawn on the sketch and removing any opened item in the RAM by clicking on the "Clear All" icon.
     ![ClearAll](public/images/Gifs/ClearAll.gif)
 </details>
+
+## Installation
+
+To install the project with `npm`, run the following commands in order.
+
+```bash
+> git clone https://github.com/OmarAhmedAdel/2ABDOH-Sketch.git
+> cd src
+> npm i
+```
+
+### Run the App
+
+```bash
+> cd src
+> npm start
+```
