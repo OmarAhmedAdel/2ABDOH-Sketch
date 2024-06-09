@@ -10,7 +10,7 @@ A web application which allows to save sketchs as images and vector files. It's 
 
 Bringing _convenience_, _speed_, and _ease of use_ to the sketch app is the primary objective.
 
-The application 2ABDOH, which stands for 2D Arabic Based Dataset Of Hnandwritten Scripts, is a sketch app used as a tool to gather data with ease.
+The application 2ABDOH, which stands for 2D Arabic Based Dataset Of Handwritten Scripts, is a sketch app used as a tool to gather data with ease.
 
 The aim here is to create a large and diverse Arabic Dataset that will help in further studies.
 
