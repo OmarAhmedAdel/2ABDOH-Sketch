@@ -240,6 +240,26 @@ export const CropFile = () => {
             alignItems: "center",
           }}
         >
+          <Tooltip title="Close">
+            <div
+              style={{
+                position: "absolute",
+                top: "8px",
+                right: "8px",
+                cursor: "pointer",
+                borderRadius: "50%",
+                transition: "box-shadow 0.3s ease",
+              }}
+              onClick={handleClear}
+              onMouseEnter={(e) =>
+                (e.currentTarget.style.boxShadow =
+                  "0 0 10px rgba(0, 0, 0, 0.4)")
+              }
+              onMouseLeave={(e) => (e.currentTarget.style.boxShadow = "none")}
+            >
+              <ClearOutlinedIcon style={{ color: "red" }} />
+            </div>
+          </Tooltip>
           <div>
             <label htmlFor="startStroke" style={{ color: "blue" }}>
               Start Stroke
@@ -271,7 +291,6 @@ export const CropFile = () => {
           <Button variant="contained" onClick={handleSet}>
             Crop
           </Button>
-          <ClearOutlinedIcon style={{ color: "red" }} onClick={handleClear} />
         </div>
       )}
     </>
