@@ -11,15 +11,9 @@ import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
 import RemoveIcon from "@mui/icons-material/Remove";
 import AddIcon from "@mui/icons-material/Add";
-import { ColorizeOutlined } from "@mui/icons-material";
 
 const buttonStyle = {
-  // position: "fixed",
-  // bottom: "20px",
-  // left: "50%",
-  // Color: "blue",
   right: "215px",
-  // transform: "translateX(-870%)",
 };
 
 const alertStyle = {
@@ -28,8 +22,6 @@ const alertStyle = {
   right: "20px",
   width: "180px",
   backgroundColor: "rgba(255, 0, 0, 0.1)",
-  // borderRadius: "4px",
-  // border: "1px solid red",
 };
 
 const blue = {
@@ -58,50 +50,27 @@ const grey = {
 
 const StyledInputRoot = styled("div")(
   ({ theme }) => `
-  font-family: 'IBM Plex Sans', sans-serif;
-  font-weight: 400;
-  color: ${theme.palette.mode === "dark" ? grey[300] : grey[500]};
   display: flex;
-  flex-flow: row nowrap;
-  justify-content: center;
   align-items: center;
+  background: ${theme.palette.mode === "dark" ? grey[800] : grey[200]};
+  border-radius: 8px;
+  padding: 5px;
 `
 );
 
 const StyledInput = styled("input")(
   ({ theme }) => `
-  font-size: 0.875rem;
+  font-size: 1rem;
   font-family: inherit;
   font-weight: 400;
   line-height: 1.375;
   color: ${theme.palette.mode === "dark" ? grey[300] : grey[900]};
   background: ${theme.palette.mode === "dark" ? grey[900] : "#fff"};
-  border: 1px solid ${theme.palette.mode === "dark" ? grey[700] : grey[200]};
-  box-shadow: 0px 2px 4px ${
-    theme.palette.mode === "dark" ? "rgba(0,0,0, 0.5)" : "rgba(0,0,0, 0.05)"
-  };
-  border-radius: 8px;
-  margin: 0 8px;
-  padding: 20px 24px; // Increased padding
-  outline: 0;
-  min-width: 0;
-  width: 10rem; // Adjust width as needed
+  border: none;
+  width: 3rem;
   text-align: center;
-
-  &:hover {
-    border-color: ${theme.palette.mode === "dark" ? blue[400] : grey[400]};
-  }
-
-  &:focus {
-    border-color: ${theme.palette.mode === "dark" ? blue[400] : grey[400]};
-    box-shadow: 0 0 0 3px ${
-      theme.palette.mode === "dark" ? blue[700] : blue[200]
-    };
-  }
-
-  &:focus-visible {
-    outline: 0;
-  }
+  outline: 0;
+  margin: 0 5px;
 `
 );
 
@@ -135,12 +104,41 @@ const StyledButton = styled(Button)(
 `
 );
 
+const IconButtonStyled = styled(IconButton)(
+  ({ theme }) => `
+  background: ${theme.palette.mode === "dark" ? grey[800] : grey[200]};
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 5px;
+`
+);
+
 export const CropFile = () => {
   const { drawInkml } = useCanvas();
   const [startStroke, setStartStroke] = React.useState(1);
   const [endStroke, setEndStroke] = React.useState(1);
+  const [maxStrokes, setMaxStrokes] = React.useState(1);
   const [showBox, setShowBox] = React.useState(false);
   const [showAlert, setShowAlert] = React.useState(false);
+
+  React.useEffect(() => {
+    const inkMLString = localStorage.getItem("openedFileContent");
+
+    if (inkMLString) {
+      const parser = new DOMParser();
+      const xml = parser.parseFromString(inkMLString, "text/xml");
+      const strokes = xml.getElementsByTagName("trace");
+      const strokeCount = strokes.length;
+
+      setMaxStrokes(strokeCount);
+      setStartStroke(1);
+      setEndStroke(strokeCount);
+    }
+  }, []);
 
   const handleSet = () => {
     const inkMLString = localStorage.getItem("openedFileContent");
@@ -153,21 +151,13 @@ export const CropFile = () => {
       return;
     }
 
-    // Create a new XML document
     const parser = new DOMParser();
     const xml = parser.parseFromString(inkMLString, "text/xml");
-
-    // Find all strokes
     const strokes = xml.getElementsByTagName("trace");
-
-    // Extract strokes based on start and end stroke numbers
-    const start = parseInt(startStroke) - 1; // For zero-based indexing
-    const end = parseInt(endStroke); // End is inclusive
-
-    // Filter strokes based on start and end stroke numbers
+    const start = parseInt(startStroke) - 1;
+    const end = parseInt(endStroke);
     const extractedStrokes = Array.from(strokes).slice(start, end);
 
-    // Construct new InkML string with extracted strokes
     let newInkMLString = '<?xml version="1.0" encoding="ASCII"?>\n';
     newInkMLString += '<ink xmlns="http://www.w3.org/2003/InkML">\n';
     newInkMLString += '  <context inkSourceRef="Tablet PC"/>\n';
@@ -178,12 +168,10 @@ export const CropFile = () => {
     newInkMLString += "    </channelList>\n";
     newInkMLString += "  </captureDevice>\n";
 
-    // Append extracted strokes to the new InkML string
     for (const stroke of extractedStrokes) {
       newInkMLString += stroke.outerHTML + "\n";
     }
 
-    // Close the InkML structure
     newInkMLString += "</ink>";
 
     localStorage.setItem("openedFileContent", newInkMLString);
@@ -194,6 +182,48 @@ export const CropFile = () => {
 
   const handleClear = () => {
     setShowBox(false);
+  };
+
+  const handleStartStrokeChange = (value) => {
+    const parsedValue = parseInt(value);
+    if (!isNaN(parsedValue) && parsedValue >= 1 && parsedValue <= endStroke) {
+      setStartStroke(parsedValue);
+    }
+  };
+
+  const handleEndStrokeChange = (value) => {
+    const parsedValue = parseInt(value);
+    if (
+      !isNaN(parsedValue) &&
+      parsedValue >= startStroke &&
+      parsedValue <= maxStrokes
+    ) {
+      setEndStroke(parsedValue);
+    }
+  };
+
+  const incrementStartStroke = () => {
+    if (startStroke < endStroke) {
+      setStartStroke(startStroke + 1);
+    }
+  };
+
+  const decrementStartStroke = () => {
+    if (startStroke > 1) {
+      setStartStroke(startStroke - 1);
+    }
+  };
+
+  const incrementEndStroke = () => {
+    if (endStroke < maxStrokes) {
+      setEndStroke(endStroke + 1);
+    }
+  };
+
+  const decrementEndStroke = () => {
+    if (endStroke > startStroke) {
+      setEndStroke(endStroke - 1);
+    }
   };
 
   return (
@@ -261,36 +291,55 @@ export const CropFile = () => {
             </div>
           </Tooltip>
           <div>
-            <label htmlFor="startStroke" style={{ color: "blue" }}>
-              Start Stroke
+            <label
+              htmlFor="startStroke"
+              style={{ color: "blue", position: "Center" }}
+            >
+              <center>Start Stroke</center>
             </label>
-            <BaseNumberInput
-              id="startStroke"
-              value={startStroke}
-              onChange={(e) => setStartStroke(e.target.value)}
-              onBlur={(e) => setStartStroke(parseInt(e.target.value))}
-              aria-label="Start Stroke"
-              min={1}
-              max={1000}
-            />
+            <StyledInputRoot>
+              <IconButtonStyled onClick={decrementStartStroke}>
+                <RemoveIcon />
+              </IconButtonStyled>
+              <StyledInput
+                id="startStroke"
+                value={startStroke}
+                onChange={(e) => handleStartStrokeChange(e.target.value)}
+                aria-label="Start Stroke"
+                // min={1}
+                // max={1000}
+              />
+              <IconButtonStyled onClick={incrementStartStroke}>
+                <AddIcon />
+              </IconButtonStyled>
+            </StyledInputRoot>
           </div>
           <div>
             <label htmlFor="endStroke" style={{ color: "blue" }}>
-              End Stroke
+              <center>End Stroke</center>
             </label>
-            <BaseNumberInput
-              id="endStroke"
-              value={endStroke}
-              onChange={(e) => setEndStroke(e.target.value)}
-              onBlur={(e) => setEndStroke(parseInt(e.target.value))}
-              aria-label="End Stroke"
-              min={1}
-              max={1000}
-            />
+            <StyledInputRoot>
+              <IconButtonStyled onClick={decrementEndStroke}>
+                <RemoveIcon />
+              </IconButtonStyled>
+              <StyledInput
+                id="endStroke"
+                value={endStroke}
+                onChange={(e) => handleEndStrokeChange(e.target.value)}
+                aria-label="End Stroke"
+                // min={1}
+                // max={1000}
+              />
+              <IconButtonStyled onClick={incrementEndStroke}>
+                <AddIcon />
+              </IconButtonStyled>
+            </StyledInputRoot>
           </div>
-          <Button variant="contained" onClick={handleSet}>
-            Crop
-          </Button>
+          <div style={{ marginTop: "20px" }}>
+            <StyledButton variant="contained" onClick={handleSet}>
+              Crop
+            </StyledButton>
+          </div>
         </div>
       )}
     </>
