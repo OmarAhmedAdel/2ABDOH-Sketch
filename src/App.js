@@ -10,6 +10,7 @@ import { DrawCanvasButton } from "./Draw";
 import { EraseCanvasButton } from "./Erase";
 import { CropFile } from "./CropFile";
 import { RemoveSelectedStrokes } from "./Delete";
+import { Shift } from "./Shift";
 import { Canvas } from "./Canvas";
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
           <EraseCanvasButton />
           <CropFile />
           <RemoveSelectedStrokes />
+          <Shift />
         </Toolbar>
       </AppBar>
       <Canvas />

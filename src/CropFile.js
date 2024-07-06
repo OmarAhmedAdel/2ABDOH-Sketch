@@ -2,21 +2,12 @@ import * as React from "react";
 import CropOutlinedIcon from "@mui/icons-material/CropOutlined";
 import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
-import Alert from "@mui/material/Alert";
-import AlertTitle from "@mui/material/AlertTitle";
 import { useCanvas } from "./CanvasContext";
 import { SelectStrokes } from "./Components/SelectStrokes";
+import { FileNotFound } from "./Components/Errors/FileNotFound";
 
 const buttonStyle = {
   right: "215px",
-};
-
-const alertStyle = {
-  position: "fixed",
-  top: "80px",
-  right: "20px",
-  width: "180px",
-  backgroundColor: "rgba(255, 0, 0, 0.1)",
 };
 
 export const CropFile = () => {
@@ -88,7 +79,7 @@ export const CropFile = () => {
 
   return (
     <>
-      <Tooltip title="Crop File">
+      <Tooltip title="Crop Drawings">
         <IconButton
           onClick={() => {
             const inkMLString = localStorage.getItem("openedFileContent");
@@ -106,14 +97,7 @@ export const CropFile = () => {
           <CropOutlinedIcon />
         </IconButton>
       </Tooltip>
-      {showAlert && (
-        <div style={{ ...alertStyle }}>
-          <Alert severity="error" variant="outlined">
-            <AlertTitle>Error</AlertTitle>
-            No File Found!
-          </Alert>
-        </div>
-      )}
+      <FileNotFound showAlert={showAlert} />
       {showBox && (
         <SelectStrokes
           startStroke={startStroke}

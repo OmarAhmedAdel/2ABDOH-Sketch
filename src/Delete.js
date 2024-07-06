@@ -1,22 +1,13 @@
 import * as React from "react";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import { useCanvas } from "./CanvasContext";
-import Alert from "@mui/material/Alert";
-import AlertTitle from "@mui/material/AlertTitle";
 import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
 import { SelectStrokes } from "./Components/SelectStrokes";
+import { FileNotFound } from "./Components/Errors/FileNotFound";
 
 const buttonStyle = {
-  right: "226px",
-};
-
-const alertStyle = {
-  position: "fixed",
-  top: "80px",
-  right: "20px",
-  width: "180px",
-  backgroundColor: "rgba(255, 0, 0, 0.1)",
+  right: "224px",
 };
 
 export const RemoveSelectedStrokes = () => {
@@ -90,7 +81,7 @@ export const RemoveSelectedStrokes = () => {
 
   return (
     <>
-      <Tooltip title="Remove Drawing">
+      <Tooltip title="Remove Drawings">
         <IconButton
           onClick={() => {
             const inkMLString = localStorage.getItem("openedFileContent");
@@ -108,14 +99,7 @@ export const RemoveSelectedStrokes = () => {
           <RemoveCircleOutlineIcon />
         </IconButton>
       </Tooltip>
-      {showAlert && (
-        <div style={{ ...alertStyle }}>
-          <Alert severity="error" variant="outlined">
-            <AlertTitle>Error</AlertTitle>
-            No File Found!
-          </Alert>
-        </div>
-      )}
+      <FileNotFound showAlert={showAlert} />
       {showBox && (
         <SelectStrokes
           startStroke={startStroke}
