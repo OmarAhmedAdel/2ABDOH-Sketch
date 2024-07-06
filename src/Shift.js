@@ -413,7 +413,11 @@ export const Shift = () => {
             </StyledInputRoot>
           </div>
           <div style={{ display: "flex", marginTop: "20px" }}>
-            <StyledButton variant="contained" onClick={resetShifts}>
+            <StyledButton
+              variant="contained"
+              onClick={resetShifts}
+              style={{ marginRight: "10px" }}
+            >
               Reset
             </StyledButton>
             <StyledButton variant="contained" onClick={applyShifts}>
