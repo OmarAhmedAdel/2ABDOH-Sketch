@@ -13,7 +13,6 @@ import ClearOutlinedIcon from "@mui/icons-material/ClearOutlined";
 import RemoveIcon from "@mui/icons-material/Remove";
 import AddIcon from "@mui/icons-material/Add";
 import { styled } from "@mui/system";
-import Button from "@mui/material/Button";
 import { FileNotFound } from "./Components/Errors/FileNotFound";
 
 const blue = {
@@ -66,7 +65,7 @@ const StyledInput = styled("input")(
   `
 );
 
-const StyledButton = styled(Button)(
+const StyledButton = styled("button")(
   ({ theme }) => `
     font-family: 'IBM Plex Sans', sans-serif;
     font-size: 0.875rem;
@@ -123,9 +122,7 @@ export const Shift = () => {
   const [showAlert, setShowAlert] = React.useState(false);
   const [shiftX, setShiftX] = React.useState(0);
   const [shiftY, setShiftY] = React.useState(0);
-  const [shifts, setShifts] = React.useState([]);
   const [shiftValue, setShiftValue] = React.useState(1);
-  const [shiftIDCounter, setShiftIDCounter] = React.useState(1);
 
   React.useEffect(() => {
     const inkMLString = localStorage.getItem("openedFileContent");
@@ -142,35 +139,7 @@ export const Shift = () => {
     }
   }, []);
 
-  const handleSet = () => {
-    const inkMLString = localStorage.getItem("openedFileContent");
-
-    if (!inkMLString) {
-      setShowAlert(true);
-      setTimeout(() => {
-        setShowAlert(false);
-      }, 5000);
-      return;
-    }
-
-    const parser = new DOMParser();
-    const xml = parser.parseFromString(inkMLString, "text/xml");
-    const strokes = xml.getElementsByTagName("trace");
-    const start = parseInt(startStroke) - 1;
-    const end = parseInt(endStroke);
-    const extractedStrokes = Array.from(strokes).slice(start, end);
-
-    let newShifts = [];
-    extractedStrokes.forEach((stroke) => {
-      newShifts.push({ id: stroke.getAttribute("id"), shiftX, shiftY });
-    });
-
-    setShifts([...shifts, ...newShifts]);
-    setShowBox(false);
-    setShowShift(true);
-  };
-
-  const applyShifts = () => {
+  const applyShifts = (deltaX, deltaY) => {
     const inkMLString = localStorage.getItem("openedFileContent");
     if (!inkMLString) return;
 
@@ -183,63 +152,38 @@ export const Shift = () => {
       const trace = traces[i];
       const traceData = trace.textContent.trim().split(",");
 
-      // Apply shifts without altering the original coordinates
       const shiftedTraceData = traceData
         .map((coordPair) => coordPair.trim().split(" "))
         .map(([x, y]) => {
-          const newX = parseFloat(x) + shiftX;
-          const newY = parseFloat(y) + shiftY;
-          console.log(`Original: (${x}, ${y}), Shifted: (${newX}, ${newY})`);
+          const newX = parseFloat(x) + deltaX;
+          const newY = parseFloat(y) + deltaY;
           return `${newX} ${newY}`;
         })
         .join(",");
 
-      // Update the trace data with shifted coordinates
       trace.textContent = shiftedTraceData;
-
-      const shiftId = `id${i + 1}`;
-      // trace.setAttribute("shift", `${shiftId} ${shiftX} ${shiftY}`);
-      trace.setAttribute("shift", `${shiftX} ${shiftY}`);
+      trace.setAttribute("shift", `${shiftX + deltaX} ${shiftY + deltaY}`);
     }
 
     const serializer = new XMLSerializer();
     const updatedInkMLString = serializer.serializeToString(xmlDoc);
     localStorage.setItem("openedFileContent", updatedInkMLString);
-    // console.log(updatedInkMLString);
     drawInkml(updatedInkMLString);
+
+    setShiftX(shiftX + deltaX);
+    setShiftY(shiftY + deltaY);
   };
 
-  const resetShifts = () => {
-    const inkMLString = localStorage.getItem("openedFileContent");
-    if (!inkMLString) return;
-
-    const parser = new DOMParser();
-    const xml = parser.parseFromString(inkMLString, "text/xml");
-    const strokes = xml.getElementsByTagName("trace");
-
-    Array.from(strokes).forEach((stroke) => {
-      stroke.removeAttribute("shift");
-    });
-
-    const serializer = new XMLSerializer();
-    const newInkMLString = serializer.serializeToString(xml);
-    localStorage.setItem("openedFileContent", newInkMLString);
-    drawInkml(newInkMLString);
-    setShiftIDCounter(1);
-    setShiftX(0);
-    setShiftY(0);
-    setShifts([]);
-    // setShowShift(false);
-  };
-
-  const incrementShiftX = () => setShiftX(shiftX + shiftValue);
-  const decrementShiftX = () => setShiftX(shiftX - shiftValue);
-  const incrementShiftY = () => setShiftY(shiftY - shiftValue);
-  const decrementShiftY = () => setShiftY(shiftY + shiftValue);
+  const incrementShiftX = () => applyShifts(shiftValue, 0);
+  const decrementShiftX = () => applyShifts(-shiftValue, 0);
+  const incrementShiftY = () => applyShifts(0, -shiftValue);
+  const decrementShiftY = () => applyShifts(0, shiftValue);
 
   const handleClear = () => {
     setShowShift(false);
     setShowBox(false);
+    setShiftX(0);
+    setShiftY(0);
   };
 
   return (
@@ -270,7 +214,10 @@ export const Shift = () => {
           maxStrokes={maxStrokes}
           setStartStroke={setStartStroke}
           setEndStroke={setEndStroke}
-          handleSet={handleSet}
+          handleSet={() => {
+            setShowShift(true);
+            setShowBox(false);
+          }}
           handleClear={() => setShowBox(false)}
           buttonLabel="Select"
         />
@@ -338,57 +285,34 @@ export const Shift = () => {
             style={{
               display: "flex",
               alignItems: "center",
-              marginBottom: "10px",
+              marginBottom: "3px",
             }}
           >
-            <IconButton onClick={incrementShiftY}>
+            <IconButtonStyled onClick={incrementShiftY}>
               <KeyboardArrowUpIcon />
-            </IconButton>
+            </IconButtonStyled>
           </div>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              marginBottom: "10px",
-            }}
-          >
-            <IconButton onClick={decrementShiftX}>
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <IconButtonStyled
+              onClick={decrementShiftX}
+              style={{ marginRight: "30px" }}
+            >
               <KeyboardArrowLeftIcon />
-            </IconButton>
-            <div>
-              <label htmlFor="X-Value" style={{ color: "blue" }}>
-                X:
-              </label>
-              <input
-                type="number"
-                value={shiftX}
-                readOnly
-                style={{ width: "50px", textAlign: "center", margin: "0 10px" }}
-              />
-              <label htmlFor="Y-Value" style={{ color: "blue" }}>
-                Y:
-              </label>
-              <input
-                type="number"
-                value={shiftY}
-                readOnly
-                style={{ width: "50px", textAlign: "center", margin: "0 10px" }}
-              />
-            </div>
-            <IconButton onClick={incrementShiftX}>
+            </IconButtonStyled>
+            <IconButtonStyled onClick={incrementShiftX}>
               <KeyboardArrowRightIcon />
-            </IconButton>
+            </IconButtonStyled>
           </div>
           <div
             style={{
               display: "flex",
               alignItems: "center",
-              marginBottom: "10px",
+              marginTop: "3px",
             }}
           >
-            <IconButton onClick={decrementShiftY}>
+            <IconButtonStyled onClick={decrementShiftY}>
               <KeyboardArrowDownIcon />
-            </IconButton>
+            </IconButtonStyled>
           </div>
           <div>
             <label htmlFor="shiftValue" style={{ color: "blue" }}>
@@ -411,18 +335,6 @@ export const Shift = () => {
                 <AddIcon />
               </IconButtonStyled>
             </StyledInputRoot>
-          </div>
-          <div style={{ display: "flex", marginTop: "20px" }}>
-            <StyledButton
-              variant="contained"
-              onClick={resetShifts}
-              style={{ marginRight: "10px" }}
-            >
-              Reset
-            </StyledButton>
-            <StyledButton variant="contained" onClick={applyShifts}>
-              Apply
-            </StyledButton>
           </div>
         </div>
       )}
