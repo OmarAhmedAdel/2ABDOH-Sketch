@@ -69,8 +69,7 @@ export const CropFile = () => {
 
     localStorage.setItem("openedFileContent", newInkMLString);
     drawInkml(newInkMLString);
-
-    setShowBox(false);
+    // setShowBox(false);
   };
 
   const handleClear = () => {
