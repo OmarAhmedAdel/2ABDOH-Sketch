@@ -54,12 +54,28 @@ The logo depicts the freedom people can have to express their true thoughts abou
 ![UpdateFile](public/images/Gifs/UpdateFile.gif)
 </details>
 <details>
-  <summary> Crop INKML File </summary>
+  <summary> Crop Strokes From INKML Files </summary>
 
 - The sketch has a cropping function based on stroke counts to make selective editing or analyzing sketches easier.
 - Users can specify a range of strokes to be included in the cropped version of the sketch by entering the start and finish stroke numbers.
-- This feature improves editing precision and flexibility by enabling users to isolate and work with specific areas of their drawings. This can happen by clicking on the "Crop File" icon.
-![CropFile](public/images/Gifs/CropFile.gif)
+- This feature improves editing precision and flexibility by enabling users to isolate and work with specific areas of their drawings. This can happen by clicking on the "Crop Drawings" icon.
+![Crop](public/images/Gifs/Crop.gif)
+</details>
+<details>
+  <summary> Remove Strokes From INKML Files </summary>
+
+- Users can specify which strokes to remove, effectively removing unwanted elements while retaining the rest of the sketch.
+- Unlike the "Crop Strokes" function, which saves selected strokes and removes the rest, "Remove Strokes" deletes selected strokes and preserves the remaining content.
+- This feature offers enhanced flexibility in sketch editing by allowing users to refine their designs without starting over. This can happen by clicking on the "Remove Drawings" icon.
+![Remove](public/images/Gifs/Remove.gif)
+</details>
+<details>
+  <summary> Shift Strokes From INKML Files </summary>
+
+- Users can select specific strokes and move them vertically or horizontally across the canvas boundaries.
+- This can happen by defining the shift distance in increments or decrements, such as 10, 20, 30, or customize it further (e.g., 11, 22, 33) etc.
+- This capability improves the editing precision by enabling users to reposition parts of their sketches effectively. This can happen by clicking on the "Shift Drawings" icon.
+![Shift](public/images/Gifs/Shift.gif)
 </details>
 <details>
   <summary> Undo & Redo </summary>
