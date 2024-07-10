@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import IconButton from "@mui/material/IconButton";
 import { Tooltip } from "@mui/material";
 import Alert from "@mui/material/Alert";
@@ -26,6 +26,10 @@ export const OpenFileCanvasButton = () => {
   const handleFileSelection = (event) => {
     clearErrorMessage();
     const file = event.target.files[0];
+    handleFile(file);
+  };
+
+  const handleFile = (file) => {
     if (file) {
       const fileName = file.name;
       const extension = fileName.split(".").pop().toLowerCase();
@@ -53,6 +57,27 @@ export const OpenFileCanvasButton = () => {
       reader.readAsText(file);
     }
   };
+
+  useEffect(() => {
+    const handleDragOver = (event) => {
+      event.preventDefault();
+    };
+
+    const handleDrop = (event) => {
+      event.preventDefault();
+      clearErrorMessage();
+      const file = event.dataTransfer.files[0];
+      handleFile(file);
+    };
+
+    window.addEventListener("dragover", handleDragOver);
+    window.addEventListener("drop", handleDrop);
+
+    return () => {
+      window.removeEventListener("dragover", handleDragOver);
+      window.removeEventListener("drop", handleDrop);
+    };
+  }, []);
 
   return (
     <>
