@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import IconButton from "@mui/material/IconButton";
 import { Tooltip } from "@mui/material";
 import Alert from "@mui/material/Alert";
-import { useCanvas } from "./CanvasContext";
+import { useCanvas } from "../Features/CanvasContext";
 import FileOpenIcon from "@mui/icons-material/FileOpen";
 
 const buttonStyle = {

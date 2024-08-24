@@ -1,10 +1,10 @@
 import * as React from "react";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
-import { useCanvas } from "./CanvasContext";
+import { useCanvas } from "../Features/CanvasContext";
 import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
-import { SelectStrokes } from "./Components/SelectStrokes";
-import { FileNotFound } from "./Components/Errors/FileNotFound";
+import { SelectStrokes } from "../Components/SelectStrokes";
+import { FileNotFound } from "../Components/Errors/FileNotFound";
 
 const buttonStyle = {
   right: "224px",

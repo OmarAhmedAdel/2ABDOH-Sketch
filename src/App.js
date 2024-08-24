@@ -1,17 +1,18 @@
 import React from "react";
 import { AppBar, Toolbar } from "@mui/material";
-import { ClearCanvasButton } from "./Clear";
-import { SaveCanvasButton } from "./SaveImage";
-import { SaveFileCanvasButton } from "./SaveFile";
-import { OpenFileCanvasButton } from "./OpenFile";
-import { UndoCanvasButton } from "./Undo";
-import { RedoCanvasButton } from "./Redo";
-import { DrawCanvasButton } from "./Draw";
-import { EraseCanvasButton } from "./Erase";
-import { CropFile } from "./CropFile";
-import { RemoveSelectedStrokes } from "./Delete";
-import { Shift } from "./Shift";
-import { Canvas } from "./Canvas";
+import { ClearCanvasButton } from "./Features/Clear";
+import { SaveCanvasButton } from "./Features/SaveImage";
+import { SaveFileCanvasButton } from "./Features/SaveFile";
+import { OpenFileCanvasButton } from "./Features/OpenFile";
+import { UndoCanvasButton } from "./Features/Undo";
+import { RedoCanvasButton } from "./Features/Redo";
+import { DrawCanvasButton } from "./Features/Draw";
+import { EraseCanvasButton } from "./Features/Erase";
+import { CropFile } from "./Features/CropFile";
+import { RemoveSelectedStrokes } from "./Features/Delete";
+import { Shift } from "./Features/Shift";
+import { CopyPaste } from "./Features/CopyPaste";
+import { Canvas } from "./Features/Canvas";
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
           <CropFile />
           <RemoveSelectedStrokes />
           <Shift />
+          <CopyPaste />
         </Toolbar>
       </AppBar>
       <Canvas />

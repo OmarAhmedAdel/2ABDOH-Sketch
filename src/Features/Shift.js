@@ -7,13 +7,13 @@ import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
-import { useCanvas } from "./CanvasContext";
-import { SelectStrokes } from "./Components/SelectStrokes";
+import { useCanvas } from "../Features/CanvasContext";
+import { SelectStrokes } from "../Components/SelectStrokes";
 import ClearOutlinedIcon from "@mui/icons-material/ClearOutlined";
 import RemoveIcon from "@mui/icons-material/Remove";
 import AddIcon from "@mui/icons-material/Add";
 import { styled } from "@mui/system";
-import { FileNotFound } from "./Components/Errors/FileNotFound";
+import { FileNotFound } from "../Components/Errors/FileNotFound";
 
 const blue = {
   100: "#daecff",

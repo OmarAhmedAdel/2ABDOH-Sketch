@@ -2,7 +2,7 @@ import React from "react";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import DrawOutlinedIcon from "@mui/icons-material/DrawOutlined";
-import { useCanvas } from "./CanvasContext";
+import { useCanvas } from "../Features/CanvasContext";
 
 const buttonStyle = {
   // position: "fixed",
