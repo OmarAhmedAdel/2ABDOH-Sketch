@@ -9,13 +9,14 @@ A web application which allows to save sketchs as images and vector files. It's 
 
 ![ReactJS](https://img.shields.io/badge/-React.Js-61DAFB?logo=react&logoColor=white&style=for-the-badge)
 [![JavaScript](https://img.shields.io/badge/JavaScript-yellow?style=for-the-badge&logo=JavaScript&logoColor=white)](https://www.javascript.com/)
+[![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)](https://html.com/)
 [![MUI](https://img.shields.io/badge/MUI-%230081CB.svg?style=for-the-badge&logo=mui&logoColor=white)](https://mui.com)
 [![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white)](https://git-scm.com)
 [![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.com)
+[![VSCode](https://custom-icon-badges.demolab.com/badge/-VSCode-blue?style=for-the-badge&logo=vscode-alt&logoColor=white)](https://code.visualstudio.com/)
 [![CodePen](https://img.shields.io/badge/CodePen-black?style=for-the-badge&logo=CodePen)](https://codepen.io/trending)
 [![Prettier](https://img.shields.io/badge/prettier-1A2C34?style=for-the-badge&logo=prettier&logoColor=F7BA3E)](https://prettier.io)
 [![Youtube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com)
-[![VSCode](https://custom-icon-badges.demolab.com/badge/-VSCode-blue?style=for-the-badge&logo=vscode-alt&logoColor=white)](https://code.visualstudio.com/)
 
 ## Motivation
 
