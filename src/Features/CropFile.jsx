@@ -5,10 +5,7 @@ import IconButton from "@mui/material/IconButton";
 import { useCanvas } from "./CanvasContext";
 import { SelectStrokes } from "../Components/SelectStrokes";
 import { FileNotFound } from "../Components/Errors/FileNotFound";
-
-const buttonStyle = {
-  right: "215px",
-};
+import { buttonStyle } from "../Components/ButtonStyles";
 
 export const CropFile = () => {
   const { drawInkml } = useCanvas();
@@ -91,7 +88,7 @@ export const CropFile = () => {
             }
             setShowBox(true);
           }}
-          style={{ ...buttonStyle }}
+          style={{ ...buttonStyle(215) }}
         >
           <CropOutlinedIcon />
         </IconButton>

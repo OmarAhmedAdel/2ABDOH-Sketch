@@ -5,10 +5,7 @@ import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
 import { SelectStrokes } from "../Components/SelectStrokes";
 import { FileNotFound } from "../Components/Errors/FileNotFound";
-
-const buttonStyle = {
-  right: "224px",
-};
+import { buttonStyle } from "../Components/ButtonStyles";
 
 export const RemoveSelectedStrokes = () => {
   const { drawInkml } = useCanvas();
@@ -93,7 +90,7 @@ export const RemoveSelectedStrokes = () => {
             }
             setShowBox(true);
           }}
-          style={{ ...buttonStyle }}
+          style={{ ...buttonStyle(224) }}
         >
           <RemoveCircleOutlineIcon />
         </IconButton>

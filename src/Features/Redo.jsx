@@ -1,14 +1,8 @@
-import React from "react";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import RedoIcon from "@mui/icons-material/Redo";
 import { useCanvas } from "./CanvasContext";
-
-const buttonStyle = {
-  // position: "fixed",
-  // top: "20px",
-  right: "250px",
-};
+import { buttonStyle } from "../Components/ButtonStyles";
 
 export const RedoCanvasButton = () => {
   const { redoLastStep } = useCanvas();
@@ -18,7 +12,7 @@ export const RedoCanvasButton = () => {
       <IconButton
         variant="contained"
         onClick={redoLastStep}
-        style={buttonStyle}
+        style={buttonStyle(250)}
       >
         <RedoIcon />
       </IconButton>

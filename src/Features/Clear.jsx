@@ -1,14 +1,8 @@
-import React from "react";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import { useCanvas } from "./CanvasContext";
-
-const buttonStyle = {
-  // position: "fixed",
-  // top: "20px",
-  right: "-220px", // -40px when having redo & undo buttons otherwise it is 20px // -70px is the new position // -100px // -130px // -160px // -190px
-};
+import { buttonStyle } from "../Components/ButtonStyles";
 
 export const ClearCanvasButton = () => {
   const { clearCanvas } = useCanvas();
@@ -23,7 +17,7 @@ export const ClearCanvasButton = () => {
     <Tooltip title="Clear All">
       <IconButton
         onClick={handleClearCanvas}
-        style={buttonStyle}
+        style={buttonStyle(-220)} // -40px when having redo & undo buttons otherwise it is 20px // -70px is the new position // -100px // -130px // -160px // -190px
         aria-label="clear all"
       >
         <DeleteForeverIcon />

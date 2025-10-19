@@ -14,6 +14,7 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import AddIcon from "@mui/icons-material/Add";
 import { styled } from "@mui/system";
 import { FileNotFound } from "../Components/Errors/FileNotFound";
+import { buttonStyle } from "../Components/ButtonStyles";
 
 const blue = {
   100: "#daecff",
@@ -108,10 +109,6 @@ const IconButtonStyled = styled(IconButton)(
   `
 );
 
-const buttonStyle = {
-  right: "235px",
-};
-
 export const Shift = () => {
   const { drawInkml } = useCanvas();
   const [startStroke, setStartStroke] = React.useState(1);
@@ -201,7 +198,7 @@ export const Shift = () => {
             }
             setShowBox(true);
           }}
-          style={{ ...buttonStyle }}
+          style={{ ...buttonStyle(235) }}
         >
           <SwapHorizIcon />
         </IconButton>

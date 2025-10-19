@@ -1,15 +1,10 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import IconButton from "@mui/material/IconButton";
 import { Tooltip } from "@mui/material";
 import Alert from "@mui/material/Alert";
 import { useCanvas } from "./CanvasContext";
 import FileOpenIcon from "@mui/icons-material/FileOpen";
-
-const buttonStyle = {
-  // position: "fixed",
-  // top: "20px",
-  right: "230px", // previously it was 295px
-};
+import { buttonStyle } from "../Components/ButtonStyles";
 
 export const OpenFileCanvasButton = () => {
   const { drawInkml } = useCanvas();
@@ -101,7 +96,7 @@ export const OpenFileCanvasButton = () => {
           <IconButton
             variant="contained"
             aria-label="open file"
-            style={buttonStyle}
+            style={buttonStyle(230)}
             component="span"
             // title="Open inkml File"
           >

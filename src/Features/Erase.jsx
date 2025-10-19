@@ -1,13 +1,7 @@
-import React from "react";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import { useCanvas } from "./CanvasContext";
-
-const buttonStyle = {
-  // position: "fixed",
-  top: "2px",
-  right: "268px",
-};
+import { buttonStyle } from "../Components/ButtonStyles";
 
 export const EraseCanvasButton = () => {
   const { setIsErasing } = useCanvas();
@@ -21,7 +15,7 @@ export const EraseCanvasButton = () => {
       <IconButton
         variant="contained"
         onClick={handleErase}
-        style={{ ...buttonStyle, filter: "brightness(0.4)" }}
+        style={{ ...buttonStyle(268), filter: "brightness(0.4)" }}
       >
         <img
           src="/images/dev-icon-145.svg"

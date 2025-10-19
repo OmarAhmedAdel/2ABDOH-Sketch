@@ -1,14 +1,8 @@
-import React from "react";
 import IconButton from "@mui/material/IconButton";
 import { Tooltip } from "@mui/material";
 import SaveAltIcon from "@mui/icons-material/SaveAlt";
 import { useCanvas } from "./CanvasContext";
-
-const buttonStyle = {
-  // position: "fixed",
-  // top: "20px",
-  right: "40px", // 100px when having redo & undo buttons otherwise it is 160px // 30 and then 70 are the old position
-};
+import { buttonStyle } from "../Components/ButtonStyles";
 
 export const SaveFileCanvasButton = () => {
   const { drawingCommandsRef } = useCanvas();
@@ -95,7 +89,7 @@ export const SaveFileCanvasButton = () => {
     <Tooltip title="Save As Inkml File">
       <IconButton
         onClick={handleSave}
-        style={buttonStyle}
+        style={buttonStyle(40)}
         aria-label="save as inkml file"
       >
         <SaveAltIcon />
