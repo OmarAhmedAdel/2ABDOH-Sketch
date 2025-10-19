@@ -1,16 +1,16 @@
 import * as React from "react";
-import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
-import { useCanvas } from "../Features/CanvasContext";
+import CropOutlinedIcon from "@mui/icons-material/CropOutlined";
 import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
+import { useCanvas } from "./CanvasContext";
 import { SelectStrokes } from "../Components/SelectStrokes";
 import { FileNotFound } from "../Components/Errors/FileNotFound";
 
 const buttonStyle = {
-  right: "224px",
+  right: "215px",
 };
 
-export const RemoveSelectedStrokes = () => {
+export const CropFile = () => {
   const { drawInkml } = useCanvas();
   const [startStroke, setStartStroke] = React.useState(1);
   const [endStroke, setEndStroke] = React.useState(1);
@@ -49,9 +49,7 @@ export const RemoveSelectedStrokes = () => {
     const strokes = xml.getElementsByTagName("trace");
     const start = parseInt(startStroke) - 1;
     const end = parseInt(endStroke);
-    const keptStrokes = Array.from(strokes).filter(
-      (stroke, index) => index < start || index >= end
-    );
+    const extractedStrokes = Array.from(strokes).slice(start, end);
 
     let newInkMLString = '<?xml version="1.0" encoding="ASCII"?>\n';
     newInkMLString += '<ink xmlns="http://www.w3.org/2003/InkML">\n';
@@ -63,7 +61,7 @@ export const RemoveSelectedStrokes = () => {
     newInkMLString += "    </channelList>\n";
     newInkMLString += "  </captureDevice>\n";
 
-    for (const stroke of keptStrokes) {
+    for (const stroke of extractedStrokes) {
       newInkMLString += stroke.outerHTML + "\n";
     }
 
@@ -80,7 +78,7 @@ export const RemoveSelectedStrokes = () => {
 
   return (
     <>
-      <Tooltip title="Remove Drawings">
+      <Tooltip title="Crop Drawings">
         <IconButton
           onClick={() => {
             const inkMLString = localStorage.getItem("openedFileContent");
@@ -95,7 +93,7 @@ export const RemoveSelectedStrokes = () => {
           }}
           style={{ ...buttonStyle }}
         >
-          <RemoveCircleOutlineIcon />
+          <CropOutlinedIcon />
         </IconButton>
       </Tooltip>
       <FileNotFound showAlert={showAlert} />
@@ -108,7 +106,7 @@ export const RemoveSelectedStrokes = () => {
           setEndStroke={setEndStroke}
           handleSet={handleSet}
           handleClear={handleClear}
-          buttonLabel="Delete"
+          buttonLabel="Crop"
         />
       )}
     </>

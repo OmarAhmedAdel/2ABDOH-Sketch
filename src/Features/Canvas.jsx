@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useCanvas } from "../Features/CanvasContext";
+import { useCanvas } from "./CanvasContext";
 
 export function Canvas() {
   const { canvasRef, prepareCanvas, startDrawing, finishDrawing, draw } =

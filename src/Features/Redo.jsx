@@ -2,7 +2,7 @@ import React from "react";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import RedoIcon from "@mui/icons-material/Redo";
-import { useCanvas } from "../Features/CanvasContext";
+import { useCanvas } from "./CanvasContext";
 
 const buttonStyle = {
   // position: "fixed",

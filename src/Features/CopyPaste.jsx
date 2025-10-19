@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
-import { useCanvas } from "../Features/CanvasContext";
+import { useCanvas } from "./CanvasContext";
 import { SelectStrokes } from "../Components/SelectStrokes";
 import { FileNotFound } from "../Components/Errors/FileNotFound";
 

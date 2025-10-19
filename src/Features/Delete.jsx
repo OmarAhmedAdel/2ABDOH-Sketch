@@ -1,16 +1,16 @@
 import * as React from "react";
-import CropOutlinedIcon from "@mui/icons-material/CropOutlined";
+import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
+import { useCanvas } from "./CanvasContext";
 import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
-import { useCanvas } from "../Features/CanvasContext";
 import { SelectStrokes } from "../Components/SelectStrokes";
 import { FileNotFound } from "../Components/Errors/FileNotFound";
 
 const buttonStyle = {
-  right: "215px",
+  right: "224px",
 };
 
-export const CropFile = () => {
+export const RemoveSelectedStrokes = () => {
   const { drawInkml } = useCanvas();
   const [startStroke, setStartStroke] = React.useState(1);
   const [endStroke, setEndStroke] = React.useState(1);
@@ -49,7 +49,9 @@ export const CropFile = () => {
     const strokes = xml.getElementsByTagName("trace");
     const start = parseInt(startStroke) - 1;
     const end = parseInt(endStroke);
-    const extractedStrokes = Array.from(strokes).slice(start, end);
+    const keptStrokes = Array.from(strokes).filter(
+      (stroke, index) => index < start || index >= end
+    );
 
     let newInkMLString = '<?xml version="1.0" encoding="ASCII"?>\n';
     newInkMLString += '<ink xmlns="http://www.w3.org/2003/InkML">\n';
@@ -61,7 +63,7 @@ export const CropFile = () => {
     newInkMLString += "    </channelList>\n";
     newInkMLString += "  </captureDevice>\n";
 
-    for (const stroke of extractedStrokes) {
+    for (const stroke of keptStrokes) {
       newInkMLString += stroke.outerHTML + "\n";
     }
 
@@ -78,7 +80,7 @@ export const CropFile = () => {
 
   return (
     <>
-      <Tooltip title="Crop Drawings">
+      <Tooltip title="Remove Drawings">
         <IconButton
           onClick={() => {
             const inkMLString = localStorage.getItem("openedFileContent");
@@ -93,7 +95,7 @@ export const CropFile = () => {
           }}
           style={{ ...buttonStyle }}
         >
-          <CropOutlinedIcon />
+          <RemoveCircleOutlineIcon />
         </IconButton>
       </Tooltip>
       <FileNotFound showAlert={showAlert} />
@@ -106,7 +108,7 @@ export const CropFile = () => {
           setEndStroke={setEndStroke}
           handleSet={handleSet}
           handleClear={handleClear}
-          buttonLabel="Crop"
+          buttonLabel="Delete"
         />
       )}
     </>
