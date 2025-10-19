@@ -7,7 +7,7 @@ import { SelectStrokes } from "../Components/SelectStrokes";
 import { FileNotFound } from "../Components/Errors/FileNotFound";
 
 const buttonStyle = {
-  right: "210px",
+  right: "245px",
 };
 
 export const CopyPaste = () => {

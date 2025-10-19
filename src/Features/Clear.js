@@ -7,7 +7,7 @@ import { useCanvas } from "../Features/CanvasContext";
 const buttonStyle = {
   // position: "fixed",
   // top: "20px",
-  right: "-190px", // -40px when having redo & undo buttons otherwise it is 20px // -70px is the new position // -100px // -130px // -160px // -190px
+  right: "-220px", // -40px when having redo & undo buttons otherwise it is 20px // -70px is the new position // -100px // -130px // -160px // -190px
 };
 
 export const ClearCanvasButton = () => {
