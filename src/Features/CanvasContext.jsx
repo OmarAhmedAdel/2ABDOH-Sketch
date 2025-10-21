@@ -11,6 +11,7 @@ export const CanvasProvider = ({ children }) => {
   const undoStackRef = useRef([]);
   const redoStackRef = useRef([]);
   const openedFileDrawingCommandsRef = useRef([]);
+  const [cleared, setCleared] = useState(false);
 
   const prepareCanvas = () => {
     const canvas = canvasRef.current;
@@ -136,6 +137,9 @@ export const CanvasProvider = ({ children }) => {
     // After clearing canvas, clear redo stack
     redoStackRef.current = [];
     setIsErasing(false);
+    setCleared(true);
+    // Reset after a short delay so it can be triggered again
+    setTimeout(() => setCleared(false), 200);
   };
 
   const undoLastStep = () => {
@@ -253,6 +257,7 @@ export const CanvasProvider = ({ children }) => {
         setIsErasing,
         isDrawing,
         setIsDrawing,
+        cleared,
       }}
     >
       {children}

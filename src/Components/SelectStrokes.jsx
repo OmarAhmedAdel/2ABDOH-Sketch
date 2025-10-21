@@ -1,4 +1,3 @@
-import * as React from "react";
 import ClearOutlinedIcon from "@mui/icons-material/ClearOutlined";
 import Button from "@mui/material/Button";
 import { styled } from "@mui/system";

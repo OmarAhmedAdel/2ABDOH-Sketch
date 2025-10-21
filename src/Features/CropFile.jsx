@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useState, useEffect } from "react";
 import CropOutlinedIcon from "@mui/icons-material/CropOutlined";
 import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
@@ -8,14 +8,14 @@ import { FileNotFound } from "../Components/Errors/FileNotFound";
 import { buttonStyle } from "../Components/ButtonStyles";
 
 export const CropFile = () => {
-  const { drawInkml } = useCanvas();
-  const [startStroke, setStartStroke] = React.useState(1);
-  const [endStroke, setEndStroke] = React.useState(1);
-  const [maxStrokes, setMaxStrokes] = React.useState(1);
-  const [showBox, setShowBox] = React.useState(false);
-  const [showAlert, setShowAlert] = React.useState(false);
+  const { drawInkml, cleared } = useCanvas();
+  const [startStroke, setStartStroke] = useState(1);
+  const [endStroke, setEndStroke] = useState(1);
+  const [maxStrokes, setMaxStrokes] = useState(1);
+  const [showBox, setShowBox] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const inkMLString = localStorage.getItem("openedFileContent");
 
     if (inkMLString) {
@@ -29,6 +29,12 @@ export const CropFile = () => {
       setEndStroke(strokeCount);
     }
   }, []);
+
+  useEffect(() => {
+    if (cleared) {
+      setShowBox(false);
+    }
+  }, [cleared]);
 
   const handleSet = () => {
     const inkMLString = localStorage.getItem("openedFileContent");

@@ -8,7 +8,7 @@ import { FileNotFound } from "../Components/Errors/FileNotFound";
 import { buttonStyle } from "../Components/ButtonStyles";
 
 export const CopyPaste = () => {
-  const { drawInkml, canvasRef } = useCanvas();
+  const { drawInkml, canvasRef, cleared } = useCanvas();
   const [showBox, setShowBox] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
   const [startStroke, setStartStroke] = useState(1);
@@ -86,6 +86,12 @@ export const CopyPaste = () => {
       setEndStroke(strokeCount);
     }
   }, []);
+
+  useEffect(() => {
+    if (cleared) {
+      setShowBox(false);
+    }
+  }, [cleared]);
 
   return (
     <>

@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useState, useEffect } from "react";
 import SwapHorizIcon from "@mui/icons-material/SwapHoriz";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
@@ -110,18 +110,18 @@ const IconButtonStyled = styled(IconButton)(
 );
 
 export const Shift = () => {
-  const { drawInkml } = useCanvas();
-  const [startStroke, setStartStroke] = React.useState(1);
-  const [endStroke, setEndStroke] = React.useState(1);
-  const [maxStrokes, setMaxStrokes] = React.useState(1);
-  const [showBox, setShowBox] = React.useState(false);
-  const [showShift, setShowShift] = React.useState(false);
-  const [showAlert, setShowAlert] = React.useState(false);
-  const [shiftX, setShiftX] = React.useState(0);
-  const [shiftY, setShiftY] = React.useState(0);
-  const [shiftValue, setShiftValue] = React.useState(1);
+  const { drawInkml, cleared } = useCanvas();
+  const [startStroke, setStartStroke] = useState(1);
+  const [endStroke, setEndStroke] = useState(1);
+  const [maxStrokes, setMaxStrokes] = useState(1);
+  const [showBox, setShowBox] = useState(false);
+  const [showShift, setShowShift] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
+  const [shiftX, setShiftX] = useState(0);
+  const [shiftY, setShiftY] = useState(0);
+  const [shiftValue, setShiftValue] = useState(1);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const inkMLString = localStorage.getItem("openedFileContent");
 
     if (inkMLString) {
@@ -135,6 +135,28 @@ export const Shift = () => {
       setEndStroke(strokeCount);
     }
   }, []);
+
+  useEffect(() => {
+    const inkMLString = localStorage.getItem("openedFileContent");
+
+    if (inkMLString) {
+      const parser = new DOMParser();
+      const xml = parser.parseFromString(inkMLString, "text/xml");
+      const strokes = xml.getElementsByTagName("trace");
+      const strokeCount = strokes.length;
+
+      setMaxStrokes(strokeCount);
+      setStartStroke(1);
+      setEndStroke(strokeCount);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (cleared) {
+      setShowBox(false);
+      setShowShift(false);
+    }
+  }, [cleared]);
 
   const applyShifts = (deltaX, deltaY) => {
     const inkMLString = localStorage.getItem("openedFileContent");
